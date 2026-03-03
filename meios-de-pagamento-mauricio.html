@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meios de Pagamento – Trabalho de Pesquisa</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f4f1eb;
+        --ink: #1c1c1c;
+        --mid: #5a5550;
+        --faint: #c8c0b4;
+        --rule: #b0a898;
+        --red: #b52b2b;
+        --paper: #faf8f4;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: var(--mid) var(--bg);
+      }
+
+      /* ─── SCROLLBAR (Webkit) ────────────────────── */
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+        border-left: 1px solid var(--rule);
+      }
+
+      ::-webkit-scrollbar-corner {
+        background: var(--bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--mid);
+        border: 2px solid var(--bg);
+        border-radius: 6px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--ink);
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── MASTHEAD ─────────────────────────────── */
+
+      .masthead {
+        background: var(--paper);
+        border-bottom: 3px solid var(--ink);
+        padding: 0;
+      }
+
+      .masthead-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 64px;
+        border-bottom: 1px solid var(--rule);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.04em;
+        color: var(--mid);
+      }
+
+      .masthead-top .dot {
+        color: var(--faint);
+        margin: 0 10px;
+      }
+
+      .masthead-main {
+        padding: 28px 64px 22px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .masthead-kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 10px;
+      }
+
+      .masthead-main h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        font-weight: 700;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+
+      .masthead-main h1 span {
+        font-weight: 300;
+        font-style: italic;
+        color: var(--mid);
+      }
+
+      .masthead-sub {
+        display: flex;
+        align-items: baseline;
+        gap: 32px;
+        padding: 14px 64px;
+      }
+
+      .masthead-sub p {
+        font-family: "Source Serif 4", serif;
+        font-size: 14.5px;
+        font-style: italic;
+        color: var(--mid);
+        max-width: 520px;
+        line-height: 1.5;
+      }
+
+      .masthead-sub .byline {
+        margin-left: auto;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        color: var(--faint);
+        letter-spacing: 0.06em;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 1.8;
+      }
+
+      /* ─── NAV ──────────────────────────────────── */
+
+      nav {
+        background: var(--ink);
+        padding: 0 64px;
+        display: flex;
+        gap: 0;
+        overflow-x: auto;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        /* Hide scrollbar for cleaner look, but keep functionality */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 24px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+        text-decoration: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        position: relative;
+      }
+
+      nav a:first-child {
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--red);
+        transform: scaleX(0);
+        transition: transform 0.2s ease;
+      }
+
+      nav a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      nav a:hover::after {
+        transform: scaleX(1);
+      }
+
+      nav a:active {
+        background: rgba(255, 255, 255, 0.08);
+        transition: none;
+      }
+
+      /* ─── PAGE ─────────────────────────────────── */
+
+      .page {
+        max-width: 840px;
+        margin: 0 auto;
+        padding: 64px 40px 80px;
+      }
+
+      /* ─── SECTION ──────────────────────────────── */
+
+      .section {
+        margin-bottom: 80px;
+        scroll-margin-top: 48px;
+      }
+
+      .section-rule {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 36px;
+      }
+
+      .section-rule::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--ink);
+      }
+
+      .section-index {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        color: var(--red);
+      }
+
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.9rem, 4vw, 2.8rem);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+
+      /* ─── BODY TEXT ────────────────────────────── */
+
+      .body-text {
+        font-size: 15.5px;
+        line-height: 1.8;
+        color: var(--ink);
+        margin-bottom: 22px;
+      }
+
+      .body-text + .body-text {
+        margin-top: -6px;
+      }
+
+      /* Drop cap */
+      .drop-cap::first-letter {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 4.2em;
+        font-weight: 700;
+        float: left;
+        line-height: 0.78;
+        margin-right: 6px;
+        margin-top: 5px;
+        color: var(--ink);
+      }
+
+      /* ─── IMAGES ─────────────────────────────────── */
+
+      .editorial-image {
+        width: 100%;
+        margin: 40px 0;
+        position: relative;
+      }
+
+      .editorial-image img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        border-radius: 2px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        filter: saturate(1.1) contrast(1.05); /* Make it pop un-obtrusively */
+      }
+
+      .editorial-image figcaption {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        color: var(--mid);
+        margin-top: 14px;
+        text-align: right;
+        letter-spacing: 0.05em;
+        padding-right: 8px;
+        border-right: 2px solid var(--red);
+      }
+
+      /* ─── PULL QUOTE ────────────────────────────── */
+
+      .pull-quote {
+        border-left: 3px solid var(--red);
+        margin: 32px 0 32px 40px;
+        padding: 4px 0 4px 24px;
+      }
+
+      .pull-quote p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.45rem;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--ink);
+      }
+
+      .pull-quote cite {
+        display: block;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--mid);
+        margin-top: 10px;
+        font-style: normal;
+      }
+
+      .pull-quote cite a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px dashed var(--faint);
+        transition: all 0.2s;
+      }
+
+      .pull-quote cite a:hover {
+        color: var(--red);
+        border-bottom-color: var(--red);
+      }
+
+      /* ─── TWO COL PROS/CONS ─────────────────────── */
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-top: 28px;
+        border: 1px solid var(--rule);
+      }
+
+      .col-block {
+        padding: 28px 28px 24px;
+      }
+
+      .col-block:first-child {
+        border-right: 1px solid var(--rule);
+      }
+
+      .col-block h4 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--mid);
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--faint);
+      }
+
+      .col-block.pro h4 {
+        color: #2a6649;
+      }
+      .col-block.con h4 {
+        color: var(--red);
+      }
+
+      .col-block ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .col-block ul li {
+        font-size: 14px;
+        line-height: 1.65;
+        color: var(--mid);
+        padding: 5px 0;
+        border-bottom: 1px dashed var(--faint);
+        display: flex;
+        gap: 10px;
+      }
+
+      .col-block ul li:last-child {
+        border-bottom: none;
+      }
+
+      .col-block.pro ul li::before {
+        content: "+";
+        color: #2a6649;
+        font-weight: 600;
+        flex-shrink: 0;
+        width: 12px;
+      }
+      .col-block.con ul li::before {
+        content: "−";
+        color: var(--red);
+        font-weight: 600;
+        flex-shrink: 0;
+        width: 12px;
+      }
+
+      /* ─── BLOCKCHAIN DIAGRAM ─────────────────────── */
+
+      .chain-wrap {
+        background: var(--ink);
+        padding: 36px 36px 32px;
+        margin: 32px 0;
+      }
+
+      .chain-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--faint);
+        margin-bottom: 20px;
+      }
+
+      .chain {
+        display: flex;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+
+      .chain-block {
+        flex: 1;
+        min-width: 130px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-right: none;
+        padding: 18px 16px 16px;
+        position: relative;
+      }
+
+      .chain-block:last-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .chain-block:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--red);
+        font-size: 13px;
+        z-index: 2;
+        background: var(--ink);
+        padding: 0 2px;
+      }
+
+      .chain-num {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9px;
+        color: var(--red);
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+
+      .chain-block h5 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+
+      .chain-block p {
+        font-size: 11.5px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
+      }
+
+      /* ─── INLINE KEY ─────────────────────────────── */
+
+      .key-def {
+        display: flex;
+        gap: 0;
+        margin: 24px 0;
+        border: 1px solid var(--rule);
+      }
+
+      .key-term {
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .key-body {
+        padding: 14px 22px;
+        font-size: 14px;
+        color: var(--mid);
+        line-height: 1.65;
+      }
+
+      /* ─── TABLE ──────────────────────────────────── */
+
+      .table-section {
+        margin-bottom: 80px;
+        scroll-margin-top: 48px;
+      }
+
+      .table-rule {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .table-rule::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--ink);
+      }
+
+      .table-rule h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .table-rule span {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        color: var(--red);
+      }
+
+      .tbl-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+
+      thead tr {
+        border-bottom: 2px solid var(--ink);
+      }
+
+      thead th {
+        padding: 10px 14px 12px;
+        text-align: left;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mid);
+        font-weight: 500;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid var(--faint);
+      }
+
+      tbody tr:last-child {
+        border-bottom: 2px solid var(--ink);
+      }
+
+      tbody td {
+        padding: 13px 14px;
+        vertical-align: top;
+        line-height: 1.55;
+        color: var(--mid);
+        font-size: 13.5px;
+      }
+
+      tbody td:first-child {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+
+      .yes {
+        color: var(--red);
+        font-style: italic;
+      }
+      .no {
+        color: #2a6649;
+        font-style: italic;
+      }
+
+      /* ─── CONCLUSAO ──────────────────────────────── */
+
+      .conclusao {
+        scroll-margin-top: 48px;
+        margin-bottom: 64px;
+        padding: 0 0 48px;
+        border-bottom: 3px solid var(--ink);
+      }
+
+      .conclusao-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .conclusao-head::before {
+        content: "Conclusão";
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--red);
+      }
+
+      .conclusao-head h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+
+      .conclusao .body-text {
+        max-width: 680px;
+      }
+
+      .answer-box {
+        margin: 32px 0 28px;
+        padding: 24px 28px;
+        border-top: 2px solid var(--ink);
+        border-bottom: 1px solid var(--rule);
+        background: var(--paper);
+      }
+
+      .answer-box p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.35rem;
+        font-style: italic;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+
+      .answer-box strong {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--red);
+      }
+
+      /* ─── FOOTNOTES ──────────────────────────────── */
+
+      .footnotes {
+        border-top: 1px solid var(--rule);
+        padding-top: 28px;
+        margin-top: 48px;
+      }
+
+      .footnotes h3 {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--mid);
+        margin-bottom: 16px;
+      }
+
+      .footnotes ol {
+        padding-left: 20px;
+      }
+
+      .footnotes ol li {
+        font-size: 12.5px;
+        color: var(--mid);
+        line-height: 1.6;
+        margin-bottom: 6px;
+      }
+
+      .footnotes ol li a {
+        color: var(--red);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+
+      .footnotes ol li a:hover {
+        border-bottom-color: var(--red);
+      }
+
+      /* ─── FOOTER ─────────────────────────────────── */
+
+      footer {
+        background: var(--ink);
+        color: var(--faint);
+        padding: 18px 64px;
+        display: flex;
+        justify-content: space-between;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────────── */
+
+      @media (max-width: 680px) {
+        .masthead-top,
+        .masthead-main,
+        .masthead-sub {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+        nav {
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+        nav a {
+          padding: 12px 16px;
+          font-size: 10px;
+        }
+        .page {
+          padding: 40px 24px 64px;
+        }
+        .editorial-image {
+          margin: 32px 0;
+        }
+        .editorial-image img {
+          height: 220px;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .col-block:first-child {
+          border-right: none;
+          border-bottom: 1px solid var(--rule);
+        }
+        .chain {
+          flex-direction: column;
+        }
+        .chain-block {
+          border-right: 1px solid rgba(255, 255, 255, 0.12);
+          border-bottom: none;
+        }
+        .chain-block:last-child {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .chain-block:not(:last-child)::after {
+          content: "↓";
+          right: auto;
+          left: 50%;
+          top: auto;
+          bottom: -12px;
+          transform: translateX(-50%);
+        }
+        .key-def {
+          flex-direction: column;
+        }
+        footer {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .pull-quote {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-top">
+        <span>Matemática 11ºF - Maurício Freitas Nº17 </span>
+        <span>
+          <span class="dot">·</span>
+          GPSI
+          <span class="dot">·</span>
+          Ano Letivo 2025–2026
+        </span>
+      </div>
+      <div class="masthead-main">
+        <div class="masthead-kicker">Trabalho de pesquisa</div>
+        <h1>Meios de <span>Pagamento</span></h1>
+      </div>
+      <div class="masthead-sub">
+        <p>
+          Identificar, definir e distinguir os diferentes meios de pagamento
+          utilizados na atualidade, compreendendo o seu funcionamento, vantagens
+          e riscos associados.
+        </p>
+        <div class="byline">
+          Disciplina<br />
+          Matemática<br />
+          ——<br />
+          2025–2026
+        </div>
+      </div>
+    </header>
+
+    <!-- NAV -->
+    <nav>
+      <a href="#moeda">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M17.4 7A8 8 0 1 0 17.4 17"></path>
+          <line x1="4" y1="11" x2="15" y2="11"></line>
+          <line x1="4" y1="14" x2="15" y2="14"></line>
+        </svg>
+        I. Moeda
+      </a>
+      <a href="#cripto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9 8h5a2 2 0 0 1 0 4H9z"></path>
+          <path d="M9 12h6a2 2 0 0 1 0 4H9z"></path>
+          <line x1="9" y1="8" x2="9" y2="16"></line>
+          <line x1="11" y1="8" x2="11" y2="6"></line>
+          <line x1="11" y1="16" x2="11" y2="18"></line>
+        </svg>
+        II. Criptomoeda
+      </a>
+      <a href="#debito">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+          <line x1="2" y1="10" x2="22" y2="10"></line>
+        </svg>
+        III. Débito
+      </a>
+      <a href="#credito">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+          <line x1="2" y1="10" x2="22" y2="10"></line>
+          <path d="m18 15.5.01-.01"></path>
+        </svg>
+        IV. Crédito
+      </a>
+      <a href="#tabela">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        Tabela
+      </a>
+      <a href="#conclusao">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+          ></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+        Conclusão
+      </a>
+    </nav>
+
+    <div class="page">
+      <!-- ── I. MOEDA ── -->
+      <section class="section" id="moeda">
+        <div class="section-rule">
+          <span class="section-index">I</span>
+          <h2 class="section-title">Moeda</h2>
+        </div>
+
+        <figure class="editorial-image">
+          <img
+            src="https://editorial.fxstreet.com/images/Markets/Currencies/Majors/EURUSD/usd-eur-banknotes-58361490_Large.jpg"
+            alt="Notas de Euro e Dólar lado a lado"
+            loading="lazy"
+          />
+          <figcaption>
+            Notas da zona Euro, a principal moeda europeia.
+          </figcaption>
+        </figure>
+
+        <p class="body-text drop-cap">
+          A moeda, na sua forma física (notas de papel e peças metálicas), é o
+          instrumento de troca mais antigo e universal em uso nas sociedades
+          modernas. A sua existência resolve um problema fundamental de qualquer
+          economia: a necessidade de um meio de troca comum que todos aceitem
+          como representação de valor.
+        </p>
+
+        <p class="body-text">
+          Em Portugal e nos restantes países que integram a zona euro, a emissão
+          de moeda é da responsabilidade exclusiva do
+          <strong>Banco Central Europeu (BCE)</strong>, em colaboração com os
+          bancos centrais nacionais. Esta centralização garante a estabilidade
+          do sistema monetário e a confiança no valor do dinheiro em circulação.
+        </p>
+
+        <div class="pull-quote">
+          <p>
+            "A moeda é a única forma de pagamento com poder liberatório legal
+            absoluto, ou seja, nenhum credor pode recusar o seu recebimento para
+            liquidar uma dívida."
+          </p>
+          <cite
+            ><a href="https://clientebancario.bportugal.pt/" target="_blank"
+              >Banco de Portugal, Portal do Cliente Bancário</a
+            ></cite
+          >
+        </div>
+
+        <p class="body-text">
+          A utilização do dinheiro físico é especialmente comum em transações
+          quotidianas de pequeno valor (mercados, padarias, transportes
+          públicos) e em contextos onde a tecnologia digital não está disponível
+          ou é de difícil acesso.
+        </p>
+
+        <div class="two-col">
+          <div class="col-block pro">
+            <h4>Vantagens</h4>
+            <ul>
+              <li>
+                Aceite universalmente, sem dependência de redes ou dispositivos
+              </li>
+              <li>Pagamento imediato e definitivo (sem intermediários)</li>
+              <li>Preserva a privacidade do utilizador</li>
+              <li>Funciona em qualquer situação, mesmo sem eletricidade</li>
+              <li>Facilita o controlo intuitivo das despesas</li>
+            </ul>
+          </div>
+          <div class="col-block con">
+            <h4>Desvantagens e riscos</h4>
+            <ul>
+              <li>Risco de roubo ou perda sem possibilidade de recuperação</li>
+              <li>Pouco prático para valores elevados ou compras online</li>
+              <li>Notas falsificadas são uma realidade</li>
+              <li>Sem registo automático das despesas</li>
+              <li>Custos de transporte e segurança para o comércio</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── II. CRIPTOMOEDA ── -->
+      <section class="section" id="cripto">
+        <div class="section-rule">
+          <span class="section-index">II</span>
+          <h2 class="section-title">Criptomoeda</h2>
+        </div>
+
+        <figure class="editorial-image">
+          <img
+            src="https://cdn.pixabay.com/photo/2019/09/16/19/20/bitcoin-4481815_1280.jpg"
+            alt="Moeda física de Bitcoin com gráfico atrás"
+            loading="lazy"
+          />
+          <figcaption>
+            Representação física da Bitcoin, a criptomoeda original.
+          </figcaption>
+        </figure>
+
+        <p class="body-text drop-cap">
+          Uma criptomoeda é uma moeda digital que existe exclusivamente em
+          formato eletrónico e que, ao contrário do euro ou do dólar, não é
+          emitida nem controlada por qualquer governo ou banco central. O
+          exemplo mais conhecido é o <strong>Bitcoin</strong>, criado em 2009
+          por uma entidade anónima que se identificou como Satoshi Nakamoto.
+        </p>
+
+        <div class="key-def">
+          <div class="key-term">Descentralização</div>
+          <div class="key-body">
+            O sistema não depende de uma autoridade central. As transações são
+            validadas por uma rede distribuída de milhares de computadores
+            independentes, tornando o sistema resistente à censura, à
+            interferência governamental e a falhas únicas.
+          </div>
+        </div>
+
+        <p class="body-text">
+          A tecnologia que torna tudo isto possível chama-se
+          <strong>blockchain</strong>, que funciona literalmente como uma cadeia
+          de blocos. Pode imaginar-se como um livro de contas público e
+          imutável, onde cada transação é registada permanentemente e visível
+          para qualquer pessoa, mas sem revelar a identidade dos intervenientes.
+        </p>
+
+        <div class="chain-wrap">
+          <div class="chain-label">
+            Funcionamento simplificado da Blockchain
+          </div>
+          <div class="chain">
+            <div class="chain-block">
+              <div class="chain-num">01</div>
+              <h5>Transação</h5>
+              <p>
+                A pessoa inicia a transferência de Bitcoin para outra carteira
+                digital.
+              </p>
+            </div>
+            <div class="chain-block">
+              <div class="chain-num">02</div>
+              <h5>Difusão</h5>
+              <p>
+                A transação é transmitida para toda a rede global de
+                computadores.
+              </p>
+            </div>
+            <div class="chain-block">
+              <div class="chain-num">03</div>
+              <h5>Validação</h5>
+              <p>
+                Computadores ("mineiros") verificam e confirmam a legitimidade.
+              </p>
+            </div>
+            <div class="chain-block">
+              <div class="chain-num">04</div>
+              <h5>Registo</h5>
+              <p>
+                A transação é adicionada definitivamente à blockchain,
+                tornando-se imutável.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="col-block pro">
+            <h4>Vantagens</h4>
+            <ul>
+              <li>
+                Transferências internacionais rápidas e com taxas reduzidas
+              </li>
+              <li>Sem intermediários (o banco não é necessário)</li>
+              <li>Resistente à censura e ao controlo externo</li>
+              <li>Todas as transações são transparentes e verificáveis</li>
+            </ul>
+          </div>
+          <div class="col-block con">
+            <h4>Riscos</h4>
+            <ul>
+              <li>
+                <em>Volatilidade</em>: o valor pode oscilar 20–30% num único dia
+              </li>
+              <li>
+                <em>Segurança</em>: perder a chave privada significa perder
+                tudo, para sempre
+              </li>
+              <li>
+                <em>Regulação</em>: quadro legal ainda incerto em muitos países
+              </li>
+              <li>Esquemas fraudulentos são frequentes no setor</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── III. CARTÃO DE DÉBITO ── -->
+      <section class="section" id="debito">
+        <div class="section-rule">
+          <span class="section-index">III</span>
+          <h2 class="section-title">Cartão de Débito</h2>
+        </div>
+
+        <figure class="editorial-image">
+          <img
+            src="https://www.santander.pt/images/empresas/product-cards/Cartao_Debito_Santander_Business_Empresas_product_card.jpg"
+            alt="Pagamento contactless com cartão num terminal TPA"
+            loading="lazy"
+          />
+          <figcaption>
+            Os cartões de débito modernos suportam pagamentos contactless.
+          </figcaption>
+        </figure>
+
+        <p class="body-text drop-cap">
+          O cartão de débito é o meio de pagamento eletrónico mais utilizado em
+          Portugal no quotidiano. Está diretamente associado a uma conta
+          bancária: quando é usado para pagar, o valor correspondente é deduzido
+          <strong>de imediato</strong> do saldo disponível. Não existe crédito
+          associado, por isso só é possível gastar o que existe na conta.
+        </p>
+
+        <p class="body-text">
+          Em Portugal, os cartões de débito funcionam maioritariamente através
+          da rede <strong>Multibanco</strong>, permitindo pagamentos em
+          terminais de pagamento automático (TPA), levantamentos em caixas
+          automáticas e, cada vez mais, pagamentos contactless e online.
+        </p>
+
+        <div class="pull-quote">
+          <p>
+            "Em condições normais de utilização, o cartão de débito não gera
+            juros. O utilizador apenas gasta o que tem, o que o torna num
+            instrumento financeiramente responsável."
+          </p>
+        </div>
+
+        <div class="two-col">
+          <div class="col-block pro">
+            <h4>Vantagens</h4>
+            <ul>
+              <li>Não acumula dívidas (gasta apenas o que tem na conta)</li>
+              <li>Sem juros em condições normais de utilização</li>
+              <li>
+                Aceite em milhões de estabelecimentos e plataformas online
+              </li>
+              <li>Extratos digitais para controlo automático de gastos</li>
+              <li>Pode ser bloqueado imediatamente em caso de roubo</li>
+            </ul>
+          </div>
+          <div class="col-block con">
+            <h4>Cuidados a ter</h4>
+            <ul>
+              <li>Nunca partilhar o código PIN com terceiros</li>
+              <li>
+                Inspecionar as caixas automáticas antes de inserir o cartão
+                (risco de skimmers)
+              </li>
+              <li>Verificar os movimentos bancários com regularidade</li>
+              <li>Atenção a sites e emails fraudulentos (phishing)</li>
+              <li>Bloquear imediatamente o cartão em caso de perda</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── IV. CARTÃO DE CRÉDITO ── -->
+      <section class="section" id="credito">
+        <div class="section-rule">
+          <span class="section-index">IV</span>
+          <h2 class="section-title">Cartão de Crédito</h2>
+        </div>
+
+        <figure class="editorial-image">
+          <img
+            src="https://consultacred.com.br/wp-content/uploads/2023/02/cartao-de-credito-Santander-Totta-Mundo-123-1.webp"
+            alt="Foco no chip moderno de um cartão de crédito"
+            loading="lazy"
+          />
+          <figcaption>
+            Com um cartão de crédito, o pagamento é adiado para o fim do mês.
+          </figcaption>
+        </figure>
+
+        <p class="body-text drop-cap">
+          O cartão de crédito funciona segundo um princípio diferente do cartão
+          de débito: permite realizar compras agora e pagar mais tarde. A
+          instituição financeira coloca à disposição do titular um determinado
+          montante (o <strong>limite de crédito</strong>) que pode ser utilizado
+          livremente até esse valor máximo.
+        </p>
+
+        <div class="key-def">
+          <div class="key-term">Pagamento diferido</div>
+          <div class="key-body">
+            As compras realizadas ao longo do mês são acumuladas numa fatura,
+            que o titular recebe no final do período de faturação. O dinheiro
+            não sai da conta no momento da compra, havendo um "adiamento" do
+            pagamento, geralmente de 20 a 50 dias.
+          </div>
+        </div>
+
+        <p class="body-text">
+          Se o valor total da fatura for pago dentro do prazo,
+          <strong>não existem juros</strong>. O problema surge quando o titular
+          opta pelo "pagamento mínimo" ou por pagar apenas uma parte. O restante
+          fica em dívida e começa a acumular juros que, em Portugal, podem
+          atingir <strong>taxas anuais superiores a 20%</strong>.
+        </p>
+
+        <div class="pull-quote">
+          <p>
+            "A aparente facilidade de adiar o pagamento é precisamente o maior
+            risco do cartão de crédito: cria uma ilusão de poder de compra que
+            pode não corresponder à situação financeira real do utilizador."
+          </p>
+          <cite
+            ><a
+              href="https://www.deco.proteste.pt/dinheiro/cartoes-credito/noticia/cartao-de-credito-como-evitar-armadilhas-financeiras"
+              target="_blank"
+              >DECO Proteste</a
+            ></cite
+          >
+        </div>
+
+        <div class="two-col">
+          <div class="col-block pro">
+            <h4>Vantagens</h4>
+            <ul>
+              <li>Útil em emergências ou compras imprevistas de maior valor</li>
+              <li>Programas de pontos, cashback e seguros de viagem</li>
+              <li>
+                Proteção adicional em compras online (possibilidade de
+                chargeback)
+              </li>
+              <li>
+                Pagamento a prestações sem juros em campanhas promocionais
+              </li>
+            </ul>
+          </div>
+          <div class="col-block con">
+            <h4>Riscos</h4>
+            <ul>
+              <li>Facilidade em gastar além das possibilidades reais</li>
+              <li>Juros muito elevados em caso de pagamento parcial</li>
+              <li>Risco de espiral de endividamento de difícil resolução</li>
+              <li>
+                Taxas anuais, comissões e encargos em levantamentos de dinheiro
+              </li>
+              <li>Exposição a fraude e uso indevido dos dados</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TABELA ── -->
+      <section class="table-section" id="tabela">
+        <div class="table-rule">
+          <span>Síntese</span>
+          <h2>Tabela Comparativa</h2>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Meio de pagamento</th>
+                <th>Forma de pagamento</th>
+                <th>Quando sai o dinheiro</th>
+                <th>Existem juros?</th>
+                <th>Riscos associados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Moeda</td>
+                <td>Físico · presencial</td>
+                <td>No momento exato da entrega</td>
+                <td class="no">Não</td>
+                <td>Roubo, perda, notas falsas</td>
+              </tr>
+              <tr>
+                <td>Criptomoeda</td>
+                <td>Digital · online</td>
+                <td>Após validação na blockchain (minutos a horas)</td>
+                <td class="no">Não (mas há taxas de rede)</td>
+                <td>Volatilidade extrema, perda de chave, fraudes</td>
+              </tr>
+              <tr>
+                <td>Cartão de Débito</td>
+                <td>Eletrónico · presencial e online</td>
+                <td>Imediatamente ou em poucas horas</td>
+                <td class="no">Normalmente não</td>
+                <td>Clonagem, phishing, descoberto (se autorizado)</td>
+              </tr>
+              <tr>
+                <td>Cartão de Crédito</td>
+                <td>Eletrónico · presencial e online</td>
+                <td>No fim do período de faturação</td>
+                <td class="yes">Sim, se não pagar o valor total</td>
+                <td>Endividamento, juros elevados, fraude</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── CONCLUSÃO ── -->
+      <section class="conclusao" id="conclusao">
+        <div class="conclusao-head">
+          <h2>
+            Qual o meio de pagamento mais seguro para um jovem trabalhador?
+          </h2>
+        </div>
+
+        <div class="answer-box">
+          <p>
+            Considerando as variáveis analisadas, o
+            <strong>cartão de débito</strong>
+            destaca-se indiscutivelmente como a ferramenta mais sensata e
+            equilibrada para quem está a dar os primeiros passos no mercado de
+            trabalho.
+          </p>
+        </div>
+
+        <p class="body-text">
+          A grande vantagem do débito não passa sequer pela sua comodidade
+          técnica, mas sim pelo seu fator comportamental imbatível: força
+          imediatamente um limite realista focado naquilo que efetivamente temos
+          na nossa conta bancária. Para alguém a começar a gerir um ordenado
+          inteiro, a impossibilidade de criar dívidas de forma acidental ou
+          negligente é um verdadeiro escudo de proteção.
+        </p>
+
+        <p class="body-text">
+          Isto contrasta radicalmente com o <strong>cartão de crédito</strong>,
+          o qual oferece uma perigosa ilusão de poder de compra. Se o jovem não
+          tiver uma disciplina implacável, arrisca-se a ser devorado pela
+          matemática dos juros ao adiar pagamentos. No outro extremo temos as
+          <strong>criptomoedas</strong>, com a sua instabilidade gritante que as
+          afasta por completo da ida rotineira ao supermercado.
+        </p>
+
+        <p class="body-text">
+          Já a clássica <strong>moeda física</strong> mantém o seu encanto
+          pedagógico (pois ajuda imenso a sentirmos que o dinheiro ganho a pulso
+          está a ser gasto), mas a sua inflexibilidade já não encontra espaço
+          num mundo onde serviços habituais, faturas de internet e compras
+          nacionais dependem a 100% de pagamentos eletrónicos credíveis.
+        </p>
+
+        <p class="body-text">
+          Deste modo, ao conjugar a travagem invisível típica do dinheiro físico
+          com a integração instantânea típica do mundo tecnológico, o cartão de
+          débito não deixa margem para dúvidas: é o meio de pagamento ideal para
+          a construção das bases financeiras sólidas de um jovem trabalhador.
+        </p>
+      </section>
+
+      <!-- FONTES -->
+      <div class="footnotes">
+        <h3>Fontes consultadas</h3>
+        <ol>
+          <li>
+            Banco de Portugal:
+            <a href="https://clientebancario.bportugal.pt/" target="_blank"
+              ><em>Portal do Cliente Bancário</em></a
+            >. clientebancario.bportugal.pt
+          </li>
+          <li>
+            Banco Central Europeu:
+            <a
+              href="https://www.ecb.europa.eu/euro/html/index.pt.html"
+              target="_blank"
+              ><em>O euro, a nossa moeda</em></a
+            >. ecb.europa.eu
+          </li>
+          <li>
+            CMVM:
+            <a
+              href="https://www.cmvm.pt/pt/ApoioAoInvestidor/Criptoativos/Pages/perguntas_respostas_para_investidores.aspx"
+              target="_blank"
+              ><em>Guia do Investidor: Criptoativos</em></a
+            >. cmvm.pt
+          </li>
+          <li>
+            DECO Proteste:
+            <a
+              href="https://www.deco.proteste.pt/dinheiro/cartoes-credito/noticia/cartao-de-credito-como-evitar-armadilhas-financeiras"
+              target="_blank"
+              ><em>Cartão de crédito: como evitar armadilhas financeiras</em></a
+            >. deco.proteste.pt
+          </li>
+          <li>
+            Nakamoto, S. (2008).
+            <a href="https://bitcoin.org/bitcoin.pdf" target="_blank"
+              ><em>Bitcoin: A Peer-to-Peer Electronic Cash System</em></a
+            >. bitcoin.org/bitcoin.pdf
+          </li>
+          <li>
+            Banco de Portugal:
+            <a
+              href="https://www.bportugal.pt/publicacao/relatorio-de-sistemas-de-pagamentos-2023"
+              target="_blank"
+              ><em>Relatório de Sistemas de Pagamentos 2023</em></a
+            >. bportugal.pt
+          </li>
+        </ol>
+      </div>
+    </div>
+    <!-- /page -->
+
+    <footer>
+      <span>Meios de Pagamento - Trabalho de Pesquisa</span>
+      <span>Educação Financeira · 2025-2026</span>
+    </footer>
+  </body>
+</html>
